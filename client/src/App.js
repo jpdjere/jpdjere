@@ -3,6 +3,13 @@ import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
+  componentDidMount(){
+    console.log("If proxy works, should return users object:");
+    fetch('/users')
+     .then(res => res.json())
+     .then(users => console.log({ users }));
+  }
+
   render() {
     return (
       <div className="App">
