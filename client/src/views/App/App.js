@@ -4,7 +4,7 @@ import './App.css';
 
 class App extends Component {
   componentDidMount(){
-    console.log("If proxy works, should return users object:");
+    console.log("If proxy works, should return users object. Remember to start backend server on localhost:3001:");
     fetch('/users')
      .then(res => res.json())
      .then(users => console.log({ users }));
