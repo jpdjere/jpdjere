@@ -25,6 +25,7 @@ The React Frontend, created using [`create-react-app`](https://github.com/facebo
 1. Start the Node/Express.js backend server with `npm start`.
 1. On another Terminal tab, enter the `client` subdirectory and install the dependencies with `npm install`.
 1. Start the Webpack dev-server with `npm start`.
+1. In the client's `package.json` file, the `"proxy": "http://localhost:3001"` config proxies requests form the frontend to the Express backend.
 
 ## Deploy to production
 
