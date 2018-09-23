@@ -4,7 +4,22 @@ import './App.css';
 import CalendarHeatmap from 'react-calendar-heatmap';
 import 'react-calendar-heatmap/dist/styles.css';
 class App extends Component {
-  state = { films: [] }
+  constructor(){
+    super();
+    const lastDay = new Date();
+    // today.setDate(1);
+    const firstDay = new Date()
+    firstDay.setDate(1);
+    firstDay.setMonth(lastDay.getMonth()-6);
+    this.state = { 
+      films: [],
+      dates: {
+        lastDay,
+        firstDay
+      }
+    }
+    this.seePrevMonth = this.seePrevMonth.bind(this);
+  }
   componentDidMount(){
     console.log("If proxy works, should return users object. Remember to start backend server on localhost:3001:");
     fetch('/data')
@@ -17,7 +32,17 @@ class App extends Component {
      });
   }
 
+  seePrevMonth(){
+    this.setState({
+      dates:{
+        lastDay:new Date(this.state.dates.lastDay.setMonth(this.state.dates.lastDay.getMonth()-3)),
+        firstDay:new Date(this.state.dates.firstDay.setMonth(this.state.dates.firstDay.getMonth()-3)),
+      }
+    })
+  }
+
   render() {
+    const {films , dates: { lastDay, firstDay }, selectedDay} = this.state;
     return (
       <div className="App">
         <header className="App-header">
@@ -26,12 +51,15 @@ class App extends Component {
         </header>
         <div style={{width:"50%",height:"50px"}}>
           <CalendarHeatmap
-            startDate={new Date('2018-08-01')}
-            endDate={new Date('2018-09-25')}
-            values={this.state.films}
-            onMouseOver={(event, value) => this.setState({
-              selectedDay:value
-            })}
+            startDate={firstDay}
+            endDate={lastDay}
+            values={films}
+            onMouseOver={(event, value) => {
+              console.log(value);
+              this.setState({
+                selectedDay:value
+              }
+            )}}
             classForValue={(value) => {
               if (!value) {
                 return 'color-empty';
@@ -40,8 +68,19 @@ class App extends Component {
             }}
           />
         </div>
+        <button onClick={this.seePrevMonth}>See previous month</button>
         <div>
-          <p>{this.state.selectedDay && this.state.selectedDay.title}</p>
+            {
+              selectedDay &&
+                <div>
+                  <p>{selectedDay.date}</p>
+                  <ul>
+                    {selectedDay.films.map(film => {
+                      return <li>{film}</li>;
+                    })}
+                  </ul>
+                </div>
+            }
         </div>
       </div>
     );
