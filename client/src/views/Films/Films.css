@@ -1,0 +1,26 @@
+.FilmsContainer {
+    display:flex;
+    flex-direction: column;
+}
+
+.FilmsGraph {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.FilmsResults {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.FilmsResults__date {
+    text-align: center
+}
+.FilmsResults__list {
+    display:flex;
+    flex-direction: column-reverse;
+}

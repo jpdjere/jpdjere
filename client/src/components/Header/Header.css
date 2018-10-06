@@ -1,0 +1,15 @@
+.header__dist {
+  width:100%;
+  display:flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header__title {
+  text-decoration: none;
+  color:white;
+}
+
+.header__gh{
+  font-size:40px !important;
+}
