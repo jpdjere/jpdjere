@@ -2,8 +2,10 @@ const express = require('express');
 const router = express.Router();
 const path = require('path');
 const fs = require('fs');
+const axios = require('axios');
 const { authorize, getNewToken, listMajors} = require('./../utils/spreadsheetImport');
 const formatFilms = require('./../utils/formatFilms');
+const config = require('./../config/config')
 
 /* GET home page. */
 router.get('/data', function(req, res, next) {
@@ -21,6 +23,17 @@ router.get('/data', function(req, res, next) {
       })
   });
 });
+
+;
+router.get('/films', (req, res) => {
+  const reqParam = `https://api.themoviedb.org/3/find/${req.query.i}?api_key=${config.moviedbApiKey}&language=en-US&external_source=imdb_id`;
+  axios(reqParam)
+    .then(response => res.send(response.data))
+    .catch(e => res.status(500).send(e))
+
+  
+
+})
 
 
 module.exports = router;
