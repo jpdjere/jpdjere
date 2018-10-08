@@ -4,9 +4,19 @@ import fetchFilm from "./../../utils/fetchFilm"
 class FilmsResults extends React.Component {
 
     componentDidUpdate(prevProps){
-      if(!prevProps.selectedDay || prevProps.selectedDay && this.props.selectedDay && prevProps.selectedDay.films[0].code !== this.props.selectedDay.films[0].code){
+      console.log(prevProps)
+      const { selectedDay } = this.props;
+      if( !selectedDay ){
+        return null;
+      }
+      if(
+          !prevProps.selectedDay || 
+          prevProps.selectedDay && this.props.selectedDay && this.props.selectedDay.films 
+          && prevProps.selectedDay.films[0].code !== this.props.selectedDay.films[0].code
+        ){
+        console.log("inside",this.props.selectedDay)
         const promises = this.props.selectedDay.films.map(film => {
-          return fetchFilm(film.code)
+          return fetchFilm(film)
         })
         Promise.all(promises)
           .then(films => {

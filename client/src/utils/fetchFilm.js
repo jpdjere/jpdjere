@@ -1,7 +1,13 @@
-export default (code) => {
+export default (film) => {
     return new Promise((resolve, reject) => {
-        fetch(`/films?i=${code}`)
+        if(film.code){
+            fetch(`/filmsByCode?i=${film.code}`)
+                .then(res => resolve(res))
+                .catch(e => reject(e))
+        } else {
+            fetch(`/filmsByTitle?t=${film.title}`)
             .then(res => resolve(res))
-            .catch(e => reject(e))
+            .catch(e => reject(e))           
+        }
     })
 }
