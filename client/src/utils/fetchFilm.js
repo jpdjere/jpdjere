@@ -1,14 +1,15 @@
 export default (film) => {
     return new Promise((resolve, reject) => {
         if(film.code){
+            console.log("codigo")
             fetch(`/filmsByCode?i=${film.code}`)
                 .then(res => res.json())
-                .then(res => resolve(res))
+                .then(res => resolve(res.movie_results[0]))
                 .catch(e => reject(e))
         } else {
             fetch(`/filmsByTitle?t=${film.title}`)
             .then(res => res.json())
-            .then(res => resolve(res))
+            .then(res => resolve(res.results[0]))
             .catch(e => reject(e))           
         }
     })
