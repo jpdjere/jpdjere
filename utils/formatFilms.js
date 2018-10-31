@@ -18,6 +18,7 @@ module.exports = (films) => {
         }
         return acc;
     },[]).map(film => {
+        console.log('\n\n\n\n\nfilm',film)
         return {
             ...film,
             count:film.films.length
