@@ -1,5 +1,6 @@
 import React from "react";
 import fetchFilm from "./../../utils/fetchFilm"
+import Card from "./../Card/Card.js"
 
 class FilmsResults extends React.Component {
     state = {
@@ -58,11 +59,12 @@ class FilmsResults extends React.Component {
             {
               displayDate && displayDate.map(film => {
                 return (
-                  film && 
-                  <div key={film.title}>
-                    <p><b>{film.original_title}</b> - {film.release_date.slice(0,4)}</p>
-                    <p>{film.overview}</p>
-                  </div>
+                  film &&
+                    <Card 
+                      fullName={film.title}
+                      description={film.overview}
+                    />
+
                 )
               })
             }
