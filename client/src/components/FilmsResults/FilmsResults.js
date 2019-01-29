@@ -2,6 +2,7 @@ import React from "react";
 import fetchFilm from "./../../utils/fetchFilm"
 import Card from "./../Card/Card.js"
 import { map } from 'lodash';
+import './FilmsResults.css'
 
 class FilmsResults extends React.Component {
     state = {
@@ -51,6 +52,13 @@ class FilmsResults extends React.Component {
       }
     }
 
+    getPosterURL(posterURL){
+      if(posterURL.slice(posterURL.length-4)==='null'){
+        return 'https://via.placeholder.com/45x70?text=No+Poster+Available'
+      }
+      return posterURL
+    }
+
     render(){
       const { selectedDay } = this.props; 
       const { displayDate } = this.state; 
@@ -67,12 +75,8 @@ class FilmsResults extends React.Component {
                         description={film.overview}
                       />
                       <img 
-                        src={film.posterURL} 
-                        style={{
-                          height:"96.4%", 
-                          width:"auto",
-                          "border-bottom-right-radius": "8px"
-                        }} 
+                        src={this.getPosterURL(film.posterURL)} 
+                        className=""
                         alt=""
                       />
 
