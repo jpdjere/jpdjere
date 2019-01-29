@@ -1,6 +1,7 @@
 import React from "react";
 import fetchFilm from "./../../utils/fetchFilm"
 import Card from "./../Card/Card.js"
+import { map } from 'lodash';
 
 class FilmsResults extends React.Component {
     state = {
@@ -60,10 +61,22 @@ class FilmsResults extends React.Component {
               displayDate && displayDate.map(film => {
                 return (
                   film &&
-                    <Card 
-                      fullName={film.title}
-                      description={film.overview}
-                    />
+                    <div style={{display:"flex", height:"250px"}}>
+                      <Card 
+                        fullName={film.title}
+                        description={film.overview}
+                      />
+                      <img 
+                        src={film.posterURL} 
+                        style={{
+                          height:"96.4%", 
+                          width:"auto",
+                          "border-bottom-right-radius": "8px"
+                        }} 
+                        alt=""
+                      />
+
+                    </div>
 
                 )
               })

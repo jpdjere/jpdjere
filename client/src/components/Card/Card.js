@@ -46,14 +46,9 @@ const CardComponent = props => {
           <CardActions className="card__action">
             <a className="card__link" href={url} target="_blank">
               <Button className="card__button" size="small">
-                <FA name="github" className="card__fa" />See on Github
+                <FA name="github" className="card__fa" />See on Imdb
               </Button>
             </a>
-            <Link className="card__link" to={`/top/${owner}/${repo}`}>
-              <Button className="card__button" size="small">
-                <FA name="rocket" className="card__fa" /> TOP CONTRIBUTORS
-              </Button>
-            </Link>
           </CardActions>
         </CardContent>
       </Card>

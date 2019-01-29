@@ -28,17 +28,30 @@ router.get('/data', function(req, res, next) {
 router.get('/filmsByCode', (req, res) => {
   const reqParam = `https://api.themoviedb.org/3/find/${req.query.i}?api_key=${config.moviedbApiKey}&language=en-US&external_source=imdb_id`;
   axios(reqParam)
-    .then(response => res.send(response.data))
-    .catch(e => res.status(500).send(e))
+    .then(response => {
+      const filmDataWithPoster = addPosterToFilmData(response.data.movie_results[0]);
+      return res.send(filmDataWithPoster)
+    })
+    .catch(e => console.log(e) && res.status(500).send(e))
 
 })
 
 router.get('/filmsByTitle', (req, res) => {
   const reqParam = `https://api.themoviedb.org/3/search/movie?api_key=${config.moviedbApiKey}&language=en-US&query=${req.query.t}&page=1&include_adult=false`;
   axios(reqParam)
-    .then(response => res.send(response.data))
-    .catch(e => res.status(500).send(e))
+    .then(response => {
+
+      const filmDataWithPoster = addPosterToFilmData(response.data.results[0]);
+      return res.send(filmDataWithPoster)
+    })
+    .catch(e => console.log(e) && res.status(500).send(e))
 })
 
+function addPosterToFilmData(filmData){
+  return {
+    ...filmData,
+    posterURL: `https://image.tmdb.org/t/p/w500/${filmData.poster_path}`
+  }
+}
 
 module.exports = router;
